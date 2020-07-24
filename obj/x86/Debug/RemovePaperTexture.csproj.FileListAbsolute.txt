@@ -1,0 +1,17 @@
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\RemovePaperTexture.exe.config
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\RemovePaperTexture.exe
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\RemovePaperTexture.pdb
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.CV.dll
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.Util.dll
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.CV.xml
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.Util.xml
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.Form1.resources
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.Properties.Resources.resources
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.csproj.GenerateResource.cache
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.csproj.CoreCompileInputs.cache
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.csproj.CopyComplete
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.exe
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.pdb
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.CV.UI.GL.dll
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\bin\x86\Debug\Emgu.CV.UI.GL.xml
+T:\邑富 SSI\RemovePaperTexture\RemovePaperTexture\RemovePaperTexture\obj\x86\Debug\RemovePaperTexture.csprojAssemblyReference.cache
