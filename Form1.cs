@@ -38,6 +38,7 @@ namespace RemovePaperTexture
 
         private void loadImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // read image
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Image|*.jpg;*.bmp;*.png";
@@ -46,15 +47,16 @@ namespace RemovePaperTexture
                 {
                     srcImage = new Mat(ofd.FileName,0);
                     tempImg.Image = srcImage.ToImage<Gray, byte>().ToBitmap();
-                    //pictureBox1.Image = srcImage.ToImage<Gray, byte>().ToBitmap();
+                    
                 }
-                //loadByFolder = false;
+                
             }
         }
 
         // DFT button
         private void button1_Click(object sender, EventArgs e)
         {
+            // padd image because dft must be 2n width and hight
             int m = CvInvoke.GetOptimalDFTSize(srcImage.Rows);
             int n = CvInvoke.GetOptimalDFTSize(srcImage.Cols);
             Mat padded = new Mat();
@@ -66,16 +68,17 @@ namespace RemovePaperTexture
             VectorOfMat matVector = new VectorOfMat(); 
             matVector.Push(padded);
             matVector.Push(zeroMat); 
-           
+           // make a complex mat
             Mat complexI = new Mat(padded.Size, DepthType.Cv32F, 2);
-            CvInvoke.Merge(matVector, complexI); //将matVector中存储的2个mat，merge到complexI中
+            CvInvoke.Merge(matVector, complexI); 
 
 
             Mat fourier = new Mat(complexI.Size, DepthType.Cv32F, 2);
-           
+           // do dft
             CvInvoke.Dft(complexI, fourier, DxtType.Forward, complexI.Rows);
 
-            //CvInvoke.GaussianBlur(fourier, fourier, new Size(3, 3), 0);
+
+            // temp is to show result of dft
             Mat temp = Magnitude(fourier);
             
             temp = new Mat(temp, new Rectangle(0, 0, temp.Cols & -2, temp.Rows & -2));
@@ -83,16 +86,16 @@ namespace RemovePaperTexture
             CvInvoke.Normalize(temp, temp, 1.0, 0.0, NormType.MinMax, DepthType.Cv32F);
             CvInvoke.Imshow("Fourier Transform", temp);
 
-            //CvInvoke.Blur(fourier, fourier, new Size(3, 3), new Point(-1, -1), BorderType.Default);
-            //CvInvoke.Threshold(fourier, fourier, 220, 0, ThresholdType.ToZero);
+            // FFTImage is to save dft infomation(complex) , only complex can be inverse
             FFTImage = fourier.Clone();
 
 
             // do with cross part
+            // crop infomation of src image
             
             Mat Real = new Mat(fourier.Size, DepthType.Cv32F, 1);
-            
             Mat Imaginary = new Mat(fourier.Size, DepthType.Cv32F, 1);
+
             VectorOfMat channels = new VectorOfMat();
             CvInvoke.Split(fourier, channels); 
             Real = channels.GetOutputArray().GetMat(0);
@@ -105,6 +108,7 @@ namespace RemovePaperTexture
             //CvInvoke.Normalize(Imaginary, Imaginary, 1.0, 0.0, NormType.MinMax, DepthType.Cv32F);
             
             // Array data
+            // convert to image instead of using Mat's data pointer
             Array tmpR = Real.GetData();
             Array tmpI = Imaginary.GetData();
             Image<Gray, float> img_R = Real.ToImage<Gray, float>();
