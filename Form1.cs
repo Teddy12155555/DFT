@@ -106,15 +106,29 @@ namespace RemovePaperTexture
             //CvInvoke.Normalize(Real, Real, 1.0, 0.0, NormType.MinMax, DepthType.Cv32F);
             SwitchQuadrants(ref Imaginary);
             //CvInvoke.Normalize(Imaginary, Imaginary, 1.0, 0.0, NormType.MinMax, DepthType.Cv32F);
-            
+
             // Array data
             // convert to image instead of using Mat's data pointer
-            Array tmpR = Real.GetData();
-            Array tmpI = Imaginary.GetData();
             Image<Gray, float> img_R = Real.ToImage<Gray, float>();
             Image<Gray, float> img_I = Real.ToImage<Gray, float>();
 
+            Array tmpR = Real.GetData();
+            // make a Real Image copy
+            Array realCopy = Real.GetData();
+            Image<Gray, float> copy_R = Real.ToImage<Gray, float>();
+            for (int i = 0; i < img_R.Width; i++)
+            {
+                for (int j = 0; j < img_R.Height; j++)
+                {
+                    copy_R.Data[j, i, 0] = (float)realCopy.GetValue(j, i);
+                }
+            }
+            CvInvoke.MedianBlur(copy_R, copy_R, 3);
+            CvInvoke.Imshow("Copy Real Image", copy_R);
 
+            Array tmpI = Imaginary.GetData();
+
+            // some num
             int Center_w = img_R.Width/2;
             int Center_h = img_I.Height/2;
             int biaspixel = 8;
@@ -123,9 +137,6 @@ namespace RemovePaperTexture
             {
                 for(int j = 0; j < img_R.Height; j++)
                 {
-                    img_R.Data[j, i, 0] = (float)tmpR.GetValue(j, i);
-                    img_I.Data[j, i, 0] = (float)tmpI.GetValue(j, i);
-                    
                     if((i>= Center_w-biaspixel && i <=Center_w + biaspixel))
                     {
                         img_R.Data[j, i, 0] = (float)tmpR.GetValue(j, i);
@@ -139,7 +150,7 @@ namespace RemovePaperTexture
                     }
                    else
                     {
-                        img_R.Data[j, i, 0] = 0;
+                        img_R.Data[j, i, 0] = copy_R.Data[j, i, 0];
                         img_I.Data[j, i, 0] = 0;
                     }
                     
@@ -147,7 +158,7 @@ namespace RemovePaperTexture
             }
 
             CvInvoke.Imshow("R", img_R);
-            CvInvoke.Imshow("I", img_I);
+            //CvInvoke.Imshow("I", img_I);
             
 
             // Image back to Mat
@@ -254,8 +265,9 @@ namespace RemovePaperTexture
 
             CvInvoke.Normalize(magnitudeImage, magnitudeImage, 1.0, 0.0, NormType.MinMax, DepthType.Cv32F);
             CvInvoke.Imshow("Fourier Transform Inverse", magnitudeImage);
+            CvInvoke.Normalize(magnitudeImage, magnitudeImage, 0, 255, NormType.MinMax, DepthType.Cv8U);
             magnitudeImage.ToBitmap().Save("Temp.png");
-            
+
         }
 
         // click on image right
